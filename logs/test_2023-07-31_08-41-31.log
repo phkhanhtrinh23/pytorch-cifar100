@@ -1,0 +1,135 @@
+2023-07-31 08:41:36,469 [INFO] Parsed args: {
+  "net": "vgg19",
+  "weights": "checkpoint/vgg19/weights/vgg19-297-best.pth",
+  "gpu": true,
+  "b": 16,
+  "log": "./logs/test_{datetime}.log',"
+}
+2023-07-31 08:41:36,718 [INFO] VGG(
+  (features): Sequential(
+    (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (5): ReLU(inplace=True)
+    (6): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (7): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): ReLU(inplace=True)
+    (10): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (12): ReLU(inplace=True)
+    (13): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (14): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (15): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (16): ReLU(inplace=True)
+    (17): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (18): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (19): ReLU(inplace=True)
+    (20): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (21): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (22): ReLU(inplace=True)
+    (23): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (24): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (25): ReLU(inplace=True)
+    (26): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (27): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (28): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (29): ReLU(inplace=True)
+    (30): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (31): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (32): ReLU(inplace=True)
+    (33): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (34): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (35): ReLU(inplace=True)
+    (36): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (37): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (38): ReLU(inplace=True)
+    (39): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (40): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (41): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (42): ReLU(inplace=True)
+    (43): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (44): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (45): ReLU(inplace=True)
+    (46): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (47): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (48): ReLU(inplace=True)
+    (49): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (50): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (51): ReLU(inplace=True)
+    (52): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (classifier): Sequential(
+    (0): Linear(in_features=512, out_features=4096, bias=True)
+    (1): ReLU(inplace=True)
+    (2): Dropout(p=0.5, inplace=False)
+    (3): Linear(in_features=4096, out_features=4096, bias=True)
+    (4): ReLU(inplace=True)
+    (5): Dropout(p=0.5, inplace=False)
+    (6): Linear(in_features=4096, out_features=100, bias=True)
+  )
+)
+2023-07-31 08:41:36,719 [INFO] 
+
+2023-07-31 08:41:46,261 [INFO] Average throughput: 1473.3146441564602
+2023-07-31 08:41:46,262 [INFO] Average inference time: 0.010842490477752684
+2023-07-31 08:41:46,263 [INFO] GPU INFO.....
+
+2023-07-31 08:41:46,264 [INFO] 
+|===========================================================================|
+|                  PyTorch CUDA memory summary, device ID 0                 |
+|---------------------------------------------------------------------------|
+|            CUDA OOMs: 0            |        cudaMalloc retries: 0         |
+|===========================================================================|
+|        Metric         | Cur Usage  | Peak Usage | Tot Alloc  | Tot Freed  |
+|---------------------------------------------------------------------------|
+| Allocated memory      | 162647 KiB | 309915 KiB | 251994 MiB | 251835 MiB |
+|       from large pool | 161280 KiB | 307584 KiB | 238979 MiB | 238822 MiB |
+|       from small pool |   1367 KiB |   3415 KiB |  13014 MiB |  13013 MiB |
+|---------------------------------------------------------------------------|
+| Active memory         | 162647 KiB | 309915 KiB | 251994 MiB | 251835 MiB |
+|       from large pool | 161280 KiB | 307584 KiB | 238979 MiB | 238822 MiB |
+|       from small pool |   1367 KiB |   3415 KiB |  13014 MiB |  13013 MiB |
+|---------------------------------------------------------------------------|
+| Requested memory      | 162186 KiB | 307333 KiB | 251404 MiB | 251246 MiB |
+|       from large pool | 160832 KiB | 305024 KiB | 238391 MiB | 238234 MiB |
+|       from small pool |   1354 KiB |   3402 KiB |  13013 MiB |  13011 MiB |
+|---------------------------------------------------------------------------|
+| GPU reserved memory   | 339968 KiB | 339968 KiB | 339968 KiB |      0 B   |
+|       from large pool | 335872 KiB | 335872 KiB | 335872 KiB |      0 B   |
+|       from small pool |   4096 KiB |   4096 KiB |   4096 KiB |      0 B   |
+|---------------------------------------------------------------------------|
+| Non-releasable memory |  27816 KiB |  55976 KiB | 175476 MiB | 175449 MiB |
+|       from large pool |  27136 KiB |  53504 KiB | 158574 MiB | 158547 MiB |
+|       from small pool |    680 KiB |   2600 KiB |  16902 MiB |  16902 MiB |
+|---------------------------------------------------------------------------|
+| Allocations           |     127    |     236    |   45239    |   45112    |
+|       from large pool |      16    |      30    |   14406    |   14390    |
+|       from small pool |     111    |     206    |   30833    |   30722    |
+|---------------------------------------------------------------------------|
+| Active allocs         |     127    |     236    |   45239    |   45112    |
+|       from large pool |      16    |      30    |   14406    |   14390    |
+|       from small pool |     111    |     206    |   30833    |   30722    |
+|---------------------------------------------------------------------------|
+| GPU reserved segments |      14    |      14    |      14    |       0    |
+|       from large pool |      12    |      12    |      12    |       0    |
+|       from small pool |       2    |       2    |       2    |       0    |
+|---------------------------------------------------------------------------|
+| Non-releasable allocs |       9    |      11    |   25036    |   25027    |
+|       from large pool |       5    |       9    |   10022    |   10017    |
+|       from small pool |       4    |       6    |   15014    |   15010    |
+|---------------------------------------------------------------------------|
+| Oversize allocations  |       0    |       0    |       0    |       0    |
+|---------------------------------------------------------------------------|
+| Oversize GPU segments |       0    |       0    |       0    |       0    |
+|===========================================================================|
+
+2023-07-31 08:41:46,264 [INFO] 
+
+2023-07-31 08:41:46,265 [INFO] Top 1 err: 0.2890000343322754
+
+2023-07-31 08:41:46,265 [INFO] Top 5 err: 0.12160003185272217
+
+2023-07-31 08:41:46,266 [INFO] Parameter numbers: 39327652

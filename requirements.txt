@@ -1,0 +1,5 @@
+tensorboard
+torch
+torchvision
+loralib
+tqdm
