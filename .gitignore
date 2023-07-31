@@ -2,3 +2,4 @@
 data
 checkpoint
 runs
+**/*.ipynb_checkpoints/
