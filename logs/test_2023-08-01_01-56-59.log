@@ -1,11 +1,11 @@
-2023-07-31 08:41:36,469 [INFO] Parsed args: {
-  "net": "vgg19",
-  "weights": "checkpoint/vgg19/weights/vgg19-297-best.pth",
+2023-08-01 01:57:06,452 [INFO] Parsed args: {
+  "net": "vgg19_qlora",
+  "weights": "checkpoint/vgg19_qlora/weights/vgg19_qlora-72-best.pth",
   "gpu": true,
   "b": 16,
-  "log": "./logs/test_{datetime}.log',"
+  "log": "./logs/test_{datetime}.log"
 }
-2023-07-31 08:41:36,718 [INFO] VGG(
+2023-08-01 01:57:06,672 [INFO] VGGQLORA(
   (features): Sequential(
     (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
     (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
@@ -61,6 +61,7 @@
     (51): ReLU(inplace=True)
     (52): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
   )
+  (quant): QuantStub()
   (classifier): Sequential(
     (0): Linear(in_features=512, out_features=4096, bias=True)
     (1): ReLU(inplace=True)
@@ -70,14 +71,15 @@
     (5): Dropout(p=0.5, inplace=False)
     (6): Linear(in_features=4096, out_features=100, bias=True)
   )
+  (dequant): DeQuantStub()
 )
-2023-07-31 08:41:36,719 [INFO] 
+2023-08-01 01:57:06,674 [INFO] 
 
-2023-07-31 08:41:46,261 [INFO] Average throughput: 1473.3146441564602
-2023-07-31 08:41:46,262 [INFO] Average inference time: 0.010842490477752684
-2023-07-31 08:41:46,263 [INFO] GPU INFO.....
+2023-08-01 01:57:18,402 [INFO] Average throughput: 1458.1225934412148
+2023-08-01 01:57:18,404 [INFO] Average inference time: 0.010955457429885863
+2023-08-01 01:57:18,404 [INFO] GPU INFO.....
 
-2023-07-31 08:41:46,264 [INFO] 
+2023-08-01 01:57:18,408 [INFO] 
 |===========================================================================|
 |                  PyTorch CUDA memory summary, device ID 0                 |
 |---------------------------------------------------------------------------|
@@ -85,51 +87,51 @@
 |===========================================================================|
 |        Metric         | Cur Usage  | Peak Usage | Tot Alloc  | Tot Freed  |
 |---------------------------------------------------------------------------|
-| Allocated memory      | 162647 KiB | 309915 KiB | 251994 MiB | 251835 MiB |
+| Allocated memory      | 164772 KiB | 314164 KiB | 252635 MiB | 252474 MiB |
 |       from large pool | 161280 KiB | 307584 KiB | 238979 MiB | 238822 MiB |
-|       from small pool |   1367 KiB |   3415 KiB |  13014 MiB |  13013 MiB |
+|       from small pool |   3492 KiB |   6580 KiB |  13655 MiB |  13652 MiB |
 |---------------------------------------------------------------------------|
-| Active memory         | 162647 KiB | 309915 KiB | 251994 MiB | 251835 MiB |
+| Active memory         | 164772 KiB | 314164 KiB | 252635 MiB | 252474 MiB |
 |       from large pool | 161280 KiB | 307584 KiB | 238979 MiB | 238822 MiB |
-|       from small pool |   1367 KiB |   3415 KiB |  13014 MiB |  13013 MiB |
+|       from small pool |   3492 KiB |   6580 KiB |  13655 MiB |  13652 MiB |
 |---------------------------------------------------------------------------|
-| Requested memory      | 162186 KiB | 307333 KiB | 251404 MiB | 251246 MiB |
+| Requested memory      | 164310 KiB | 311582 KiB | 252045 MiB | 251884 MiB |
 |       from large pool | 160832 KiB | 305024 KiB | 238391 MiB | 238234 MiB |
-|       from small pool |   1354 KiB |   3402 KiB |  13013 MiB |  13011 MiB |
+|       from small pool |   3478 KiB |   6558 KiB |  13653 MiB |  13650 MiB |
 |---------------------------------------------------------------------------|
-| GPU reserved memory   | 339968 KiB | 339968 KiB | 339968 KiB |      0 B   |
+| GPU reserved memory   | 344064 KiB | 344064 KiB | 344064 KiB |      0 B   |
 |       from large pool | 335872 KiB | 335872 KiB | 335872 KiB |      0 B   |
-|       from small pool |   4096 KiB |   4096 KiB |   4096 KiB |      0 B   |
+|       from small pool |   8192 KiB |   8192 KiB |   8192 KiB |      0 B   |
 |---------------------------------------------------------------------------|
-| Non-releasable memory |  27816 KiB |  55976 KiB | 175476 MiB | 175449 MiB |
+| Non-releasable memory |  27740 KiB |  55900 KiB | 177700 MiB | 177673 MiB |
 |       from large pool |  27136 KiB |  53504 KiB | 158574 MiB | 158547 MiB |
-|       from small pool |    680 KiB |   2600 KiB |  16902 MiB |  16902 MiB |
+|       from small pool |    604 KiB |   3353 KiB |  19126 MiB |  19125 MiB |
 |---------------------------------------------------------------------------|
-| Allocations           |     127    |     236    |   45239    |   45112    |
+| Allocations           |     133    |     248    |   50876    |   50743    |
 |       from large pool |      16    |      30    |   14406    |   14390    |
-|       from small pool |     111    |     206    |   30833    |   30722    |
+|       from small pool |     117    |     218    |   36470    |   36353    |
 |---------------------------------------------------------------------------|
-| Active allocs         |     127    |     236    |   45239    |   45112    |
+| Active allocs         |     133    |     248    |   50876    |   50743    |
 |       from large pool |      16    |      30    |   14406    |   14390    |
-|       from small pool |     111    |     206    |   30833    |   30722    |
+|       from small pool |     117    |     218    |   36470    |   36353    |
 |---------------------------------------------------------------------------|
-| GPU reserved segments |      14    |      14    |      14    |       0    |
+| GPU reserved segments |      16    |      16    |      16    |       0    |
 |       from large pool |      12    |      12    |      12    |       0    |
-|       from small pool |       2    |       2    |       2    |       0    |
+|       from small pool |       4    |       4    |       4    |       0    |
 |---------------------------------------------------------------------------|
-| Non-releasable allocs |       9    |      11    |   25036    |   25027    |
+| Non-releasable allocs |       9    |      16    |   33484    |   33475    |
 |       from large pool |       5    |       9    |   10022    |   10017    |
-|       from small pool |       4    |       6    |   15014    |   15010    |
+|       from small pool |       4    |       7    |   23462    |   23458    |
 |---------------------------------------------------------------------------|
 | Oversize allocations  |       0    |       0    |       0    |       0    |
 |---------------------------------------------------------------------------|
 | Oversize GPU segments |       0    |       0    |       0    |       0    |
 |===========================================================================|
 
-2023-07-31 08:41:46,264 [INFO] 
+2023-08-01 01:57:18,408 [INFO] 
 
-2023-07-31 08:41:46,265 [INFO] Top 1 err: 0.2890000343322754
+2023-08-01 01:57:18,412 [INFO] Top 1 err: 0.2882000207901001
 
-2023-07-31 08:41:46,265 [INFO] Top 5 err: 0.12160003185272217
+2023-08-01 01:57:18,416 [INFO] Top 5 err: 0.12200003862380981
 
-2023-07-31 08:41:46,266 [INFO] Parameter numbers: 39327652
+2023-08-01 01:57:18,417 [INFO] Parameter numbers: 39871524

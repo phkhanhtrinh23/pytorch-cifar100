@@ -24,7 +24,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 from conf import settings
 from utils import get_network, get_training_dataloader, get_test_dataloader, WarmUpLR, \
-    most_recent_folder, most_recent_weights, last_epoch, best_acc_weights
+    most_recent_folder, most_recent_weights, last_epoch, best_acc_weights, network_to_half
 
 import loralib as lora
 from tqdm import tqdm
@@ -241,7 +241,9 @@ if __name__ == '__main__':
     if args.net.split("_")[-1] in ["lora", "qlora"]:
         print('fine tune just a part of the original weights file.....')
         lora.mark_only_lora_as_trainable(net)
-
+    
+    net = network_to_half(net)
+    
     print_trainable_parameters(net)
     
     for epoch in range(1, settings.EPOCH + 1):

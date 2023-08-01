@@ -14,7 +14,38 @@ from torch.optim.lr_scheduler import _LRScheduler
 import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
+from torch import nn
 
+class tofp16(nn.Module):
+    """
+    Utility module that implements::
+        def forward(self, input):
+            return input.half()
+    """
+
+    def __init__(self):
+        super(tofp16, self).__init__()
+
+    def forward(self, input):
+        return input.half()
+
+def BN_convert_float(module):
+    """
+    Utility function for network_to_half().
+    Retained for legacy purposes.
+    """
+    if isinstance(module, torch.nn.modules.batchnorm._BatchNorm) and module.affine is True:
+        module.float()
+    for child in module.children():
+        BN_convert_float(child)
+    return module
+
+def network_to_half(network):
+    """
+    Convert model to half precision in a batchnorm-safe way.
+    Retained for legacy purposes. It is recommended to use FP16Model.
+    """
+    return nn.Sequential(tofp16(), BN_convert_float(network.half()))
 
 def get_network(args):
     """ return given network

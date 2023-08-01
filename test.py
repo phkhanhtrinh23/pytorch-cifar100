@@ -26,9 +26,29 @@ from tqdm import tqdm
 import json
 import numpy as np
 
+import torch
+import torchvision.models as models
+from torch.profiler import profile, record_function, ProfilerActivity
+
+from utils import network_to_half
+
 start_datetime = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
 starter, ender = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
 
+def print_trainable_parameters(model):
+    """
+    Prints the number of trainable parameters in the model.
+    """
+    trainable_params = 0
+    all_param = 0
+    for _, param in model.named_parameters():
+        all_param += param.numel()
+        if param.requires_grad:
+            trainable_params += param.numel()
+    print(
+        f"trainable params: {trainable_params} || all params: {all_param} || trainable%: {100 * trainable_params / all_param:.2f}"
+    )
+    
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
@@ -62,10 +82,15 @@ if __name__ == '__main__':
     
     logging.info(f'Parsed args: {json.dumps(dict(args.__dict__), indent=2)}')
     
-    if args.net.split("_")[1] in ["lora","qlora"]:
+    if len(args.net.split("_")) == 2 and args.net.split("_")[1] in ["lora","qlora"]:
+        print("loading {}...".format(args.net))
         net.load_state_dict(torch.load(args.weights), strict=False)
     else:
         net.load_state_dict(torch.load(args.weights))
+    
+    net = network_to_half(net)
+    print_trainable_parameters(net)
+    
     logging.info(net)
     logging.info("\n")
     net.eval()
@@ -88,7 +113,11 @@ if __name__ == '__main__':
 #                 print(torch.cuda.memory_summary(), end='')
 
             starter.record()
+            
+#             with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True) as prof:
+#                 with record_function("model_inference"):
             output = net(image)
+            
             ender.record()
             torch.cuda.synchronize()
             curr_time = starter.elapsed_time(ender)/1000
@@ -105,6 +134,8 @@ if __name__ == '__main__':
 
             #compute top1
             correct_1 += correct[:, :1].sum()
+    
+#     print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=10))
     
     throughput = (n_iter * args.b) / total_time
     logging.info('Average throughput: {}'.format(throughput))

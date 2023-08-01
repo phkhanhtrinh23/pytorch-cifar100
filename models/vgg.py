@@ -27,15 +27,12 @@ class VGG(nn.Module):
 
         self.classifier = nn.Sequential(
             nn.Linear(512, 4096),
-            # lora.Linear(512, 4096, r=16),
             nn.ReLU(inplace=True),
             nn.Dropout(),
             nn.Linear(4096, 4096),
-            # lora.Linear(4096, 4096, r=16),
             nn.ReLU(inplace=True),
             nn.Dropout(),
             nn.Linear(4096, num_class)
-            # lora.Linear(4096, num_class, r=16),
         )
 
     def forward(self, x):
@@ -52,15 +49,12 @@ class VGGLORA(nn.Module):
         self.features = features
 #         self.quant = torch.ao.quantization.QuantStub()
         self.classifier = nn.Sequential(
-#             nn.Linear(512, 4096),
             lora.Linear(512, 4096, r=32),
             nn.ReLU(inplace=True),
             nn.Dropout(),
-#             nn.Linear(4096, 4096),
             lora.Linear(4096, 4096, r=32),
             nn.ReLU(inplace=True),
             nn.Dropout(),
-#             nn.Linear(4096, num_class)
             lora.Linear(4096, num_class, r=32),
         )
 #         self.dequant = torch.ao.quantization.DeQuantStub()
@@ -86,15 +80,12 @@ class VGGQLORA(nn.Module):
         self.features = features
         self.quant = torch.ao.quantization.QuantStub()
         self.classifier = nn.Sequential(
-#             nn.Linear(512, 4096),
             lora.Linear(512, 4096, r=32),
             nn.ReLU(inplace=True),
             nn.Dropout(),
-#             nn.Linear(4096, 4096),
             lora.Linear(4096, 4096, r=32),
             nn.ReLU(inplace=True),
             nn.Dropout(),
-#             nn.Linear(4096, num_class)
             lora.Linear(4096, num_class, r=32),
         )
         self.dequant = torch.ao.quantization.DeQuantStub()
